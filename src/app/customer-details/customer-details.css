@@ -1,0 +1,284 @@
+.customer-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 30px;
+  max-width: 700px;
+}
+
+.customer-fields {
+  flex: 1;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 2px;
+}
+
+.field-row label {
+  width: 110px;
+  /* tight, readable */
+  font-weight: 500;
+  text-align: left;
+}
+
+
+.field-row input {
+  width: 350px;
+  padding: 6px;
+}
+
+.field-row.full input {
+  width: 350px;
+}
+
+.customer-edit {
+  display: flex;
+  align-items: flex-start;
+}
+
+.edit-btn {
+  padding: 8px 20px;
+  border-radius: 10px;
+  border: 1px solid #e07a47;
+  background: #e07a47;
+  cursor: pointer;
+  color: #fff;
+}
+
+.save-customer-btn {
+  padding: 8px 20px;
+  border-radius: 10px;
+  border: 1px solid #4caf50;
+  background: #4caf50;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+.save-order-btn {
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: 1px solid #4caf50;
+  background: #4caf50;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+h2 {
+  font-size: 26px;
+  color: #e07a47;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 25px;
+}
+
+
+label {
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: #555;
+}
+
+input,
+textarea {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+input[readonly],
+textarea[readonly] {
+  background-color: #f5f5f5;
+  color: #555;
+}
+
+
+.measure-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.measure {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+}
+
+.upload input {
+  border: none;
+  padding: 4px 0;
+}
+
+/* .order-details .save-btn {
+  margin-top: 16px;
+} */
+
+.history p {
+  font-size: 14px;
+  color: #777;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.orders-table th {
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  background-color: #ffd2bc;
+}
+
+.orders-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.orders-table tbody tr:hover td {
+  background: #fff2eb;
+}
+
+.status {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.status.pending {
+  color: #d35400;
+}
+
+.status.completed {
+  color: #4caf50;
+}
+
+.complete-btn {
+  margin-left: 10px;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #4caf50;
+  color: white;
+}
+
+.complete-btn:hover {
+  background: #3e8e41;
+}
+
+.status.pending {
+  color: #d35400;
+  font-weight: 600;
+}
+
+.status.completed {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.view-img-btn {
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  border: 1px solid #a87155;
+  background: white;
+  cursor: pointer;
+}
+
+.view-img-btn:hover {
+  background: #fff2eb;
+}
+
+.order-images {
+  margin-top: 6px;
+  display: flex;
+  gap: 6px;
+}
+
+.order-images img {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.image-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 8px;
+}
+
+.close-btn {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #c0392b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.close-btn:hover {
+  background: #a93226;
+}
+
+
+/* ======================
+   RESPONSIVE (MOBILE)
+====================== */
+@media (max-width: 600px) {
+  .measure-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .order-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .top-actions {
+    flex-direction: column;
+  }
+}

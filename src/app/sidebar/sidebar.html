@@ -1,0 +1,37 @@
+<aside
+  class="sidebar"
+  [class.mobile-open]="mobileOpen"
+>
+
+
+  <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <mat-icon>dashboard</mat-icon>
+    <span class="label">Dashboard</span>
+  </a>
+
+  <a routerLink="/customers" routerLinkActive="active">
+    <mat-icon>people</mat-icon>
+    <span class="label">Customers</span>
+  </a>
+
+  <a routerLink="/addNewCustomer" routerLinkActive="active">
+    <mat-icon>person_add</mat-icon>
+    <span class="label">Add Customer</span>
+  </a>
+
+  <a routerLink="/placeNewOrder" routerLinkActive="active">
+    <mat-icon>straighten</mat-icon>
+    <span class="label">New Order</span>
+  </a>
+
+  <a routerLink="/designs" routerLinkActive="active">
+    <mat-icon>image</mat-icon>
+    <span class="label">Designs</span>
+  </a>
+
+  <a routerLink="/pendingOrders" routerLinkActive="active">
+    <mat-icon>schedule</mat-icon>
+    <span class="label">Pending Orders</span>
+  </a>
+
+</aside>

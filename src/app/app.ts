@@ -1,10 +1,10 @@
 import { Component} from '@angular/core';
-import { Login } from './login/login';
-import { FormsModule } from '@angular/forms';
+import {  RouterOutlet } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
-  imports: [Login],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

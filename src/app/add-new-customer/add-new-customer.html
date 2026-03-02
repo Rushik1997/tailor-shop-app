@@ -1,0 +1,84 @@
+<div class="new-customer-page">
+  <div class="page-header"><h2>New Customer</h2>
+  
+
+  <div class="customer-fields">
+    <div class="field-row">
+      <label>Name</label>
+      <input [(ngModel)]="customer.name" #name="ngModel" required /><small class="error"
+        *ngIf="name.touched && name.invalid">*Name is required</small>
+    </div>
+    <div class="field-row">
+      <label>Whatsapp</label>
+      <input [(ngModel)]="customer.whatsapp" #whatsapp="ngModel" pattern="^\d{10}$" />
+      <small class="error" *ngIf="whatsapp.touched && whatsapp.invalid">*Enter a valid 10-digit number</small>
+    </div>
+
+    <div class="field-row full">
+      <label>Address</label>
+      <input [(ngModel)]="customer.address" #address="ngModel" required /><small class="error"
+        *ngIf="address.touched && address.invalid">*Address is required</small>
+    </div>
+  </div>
+
+
+  <hr />
+
+  <section class="measurements">
+    <h3>Dimensions</h3>
+
+    <div class="measure-grid">
+      <div class="measure"><label>Sleeve</label><input [(ngModel)]="customer.measurements.sleeve" #sleeve="ngModel"
+          required pattern="^[0-9]*\.?[0-9]+$" /> <small class="error" *ngIf="sleeve.touched && sleeve.invalid">*Must
+          be a number greater than 0</small></div>
+      <div class="measure"><label>Shoulder</label><input [(ngModel)]="customer.measurements.shoulder"
+          #shoulder="ngModel" required pattern="^[0-9]*\.?[0-9]+$" /> <small class="error"
+          *ngIf="shoulder.touched && shoulder.invalid">*Must
+          be a number greater than 0</small></div>
+      <div class="measure"><label>Height</label><input [(ngModel)]="customer.measurements.height" #height="ngModel"
+          required pattern="^[0-9]*\.?[0-9]+$" /> <small class="error" *ngIf="height.touched && height.invalid">*Must
+          be a number greater than 0</small></div>
+      <div class="measure"><label>Chest</label><input [(ngModel)]="customer.measurements.chest" #chest="ngModel"
+          required pattern="^[0-9]*\.?[0-9]+$" /> <small class="error" *ngIf="chest.touched && chest.invalid">*Must
+          be a number greater than 0</small></div>
+      <div class="measure"><label>Neck</label><input [(ngModel)]="customer.measurements.neck" #neck="ngModel" required
+          pattern="^[0-9]*\.?[0-9]+$" /> <small class="error" *ngIf="neck.touched && neck.invalid">*Must
+          be a number greater than 0</small></div>
+      <div class="measure"><label>Back</label><input [(ngModel)]="customer.measurements.back" #back="ngModel" required
+          pattern="^[0-9]*\.?[0-9]+$" /> <small class="error" *ngIf="back.touched && back.invalid">*Must
+          be a number greater than 0</small></div>
+    </div>
+  </section>
+
+  <hr />
+
+  <section class="order-details">
+    <h3>Order Details</h3>
+
+    <div class="order-grid">
+      <div class="field">
+        <label>Qty</label>
+        <input type="number" [(ngModel)]="order.qty" />
+      </div>
+
+      <div class="upload">
+
+        <input type="file" accept="image/*" capture="environment" (change)="onBlousePhotoChange($event)" />
+      </div>
+
+
+
+      <div class="field">
+        <label>Neck design</label>
+        <input type="text" [(ngModel)]="order.neckDesign" />
+      </div>
+    </div>
+
+
+
+    <button class="save-customer-btn" (click)="saveCustomer()">
+      Save
+    </button>
+
+  </section>
+</div>

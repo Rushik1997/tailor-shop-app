@@ -1,0 +1,151 @@
+.new-customer-page {
+  padding: 20px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+
+}
+
+.customer-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 30px;
+  max-width: 700px;
+}
+
+.customer-fields {
+  flex: 1;
+
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 2px;
+}
+
+.field-row label {
+  width: 110px;
+  font-weight: 500;
+  text-align: left;
+}
+
+
+.field-row input {
+  width: 350px;
+  padding: 6px;
+}
+
+.field-row.full input {
+  width: 350px;
+}
+
+.customer-edit {
+  display: flex;
+  align-items: flex-start;
+}
+
+.edit-btn {
+  padding: 8px 20px;
+  border-radius: 10px;
+  border: 1px solid #e07a47;
+  background: #e07a47;
+  cursor: pointer;
+  color: #fff;
+}
+
+.save-customer-btn {
+  padding: 8px 20px;
+  border-radius: 10px;
+  border: 1px solid #4caf50;
+  background: #4caf50;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.error {
+  color: #ff0000;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+input.ng-touched.ng-invalid {
+  border-color: #c0392b;
+}
+
+
+h2 {
+  font-size: 26px;
+  color: #e07a47;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+
+label {
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: #555;
+}
+
+input,
+textarea {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+
+.measure-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.measure {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+}
+
+.upload input {
+  border: none;
+  padding: 4px 0;
+}
+
+
+.history p {
+  font-size: 14px;
+  color: #777;
+}
+
+/* ======================
+   RESPONSIVE (MOBILE)
+====================== */
+@media (max-width: 600px) {
+  .measure-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .order-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .top-actions {
+    flex-direction: column;
+  }
+}

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,6 +16,8 @@ export class Login {
   password: string = '';
   error: string = '';
 
+  constructor(private router:Router) {}
+
   login() {
     if (!this.username || !this.password) {
       this.error = "नाव आणि पासवर्ड आवश्यक आहेत.";
@@ -22,7 +25,8 @@ export class Login {
     }
     if (this.username === 'admin' && this.password === '0909') {
       this.error = ''
-      alert('Login Successful');
+      this.router.navigate(['/dashboard']);
+
       return;
     }
     else {

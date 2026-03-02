@@ -1,0 +1,159 @@
+<h2>Customer Details & Order</h2>
+<div class="customer-row">
+
+    <div class="customer-fields">
+        <div class="field-row">
+            <label>Name</label>
+            <input [(ngModel)]="customer.name" [readonly]="!editMode" />
+
+        </div>
+
+        <div class="field-row">
+            <label>Whatsapp</label>
+            <input [(ngModel)]="customer.whatsapp" [readonly]="!editMode" />
+        </div>
+
+        <div class="field-row full">
+            <label>Address</label>
+            <input [(ngModel)]="customer.address" [readonly]="!editMode" />
+        </div>
+    </div>
+
+    <div class="customer-edit">
+        <button *ngIf="!editMode" class="edit-btn" (click)="enableEdit()">Edit</button>
+        <button *ngIf="editMode" class="save-customer-btn" (click)="saveCustomer()">Save</button>
+
+    </div>
+
+</div>
+
+
+<section class="measurements">
+    <h3>Dimensions</h3>
+
+    <div class="measure-grid">
+        <div class="measure">
+            <label>Sleeve</label>
+            <input [(ngModel)]="customer.measurements.sleeve" [readonly]="!editMode" />
+        </div>
+
+        <div class="measure">
+            <label>Shoulder</label>
+            <input [(ngModel)]="customer.measurements.shoulder" [readonly]="!editMode" />
+        </div>
+
+        <div class="measure">
+            <label>Height</label>
+            <input [(ngModel)]="customer.measurements.height" [readonly]="!editMode" />
+        </div>
+
+        <div class="measure">
+            <label>Chest</label>
+            <input [(ngModel)]="customer.measurements.chest" [readonly]="!editMode" />
+        </div>
+
+        <div class="measure">
+            <label>Neck</label>
+            <input [(ngModel)]="customer.measurements.neck" [readonly]="!editMode" />
+        </div>
+
+        <div class="measure">
+            <label>Back</label>
+            <input [(ngModel)]="customer.measurements.back" [readonly]="!editMode" />
+        </div>
+    </div>
+</section>
+
+<hr />
+
+<section class="order-details">
+    <h3>Order Details</h3>
+
+    <div class="order-grid">
+        <div class="field">
+            <label>Qty</label>
+            <input type="number" [(ngModel)]="order.qty" />
+        </div>
+
+        <div class="upload">
+
+            <input type="file" accept="image/*" capture="environment" (change)="onBlousePhotoChange($event)" />
+        </div>
+
+
+
+        <div class="field">
+            <label>Neck design</label>
+            <input type="text" [(ngModel)]="order.neckDesign" />
+        </div>
+    </div>
+
+    <section class="notes">
+        <h3>Other suggestions</h3>
+        <textarea rows="3" [(ngModel)]="order.suggestions"></textarea>
+    </section>
+
+    <button class="save-order-btn" (click)="saveOrder()">
+        Save Order
+    </button>
+</section>
+
+<hr />
+
+<!-- PREVIOUS ORDERS -->
+<h3>Previous Orders</h3>
+
+<table class="orders-table" *ngIf="customer?.orders?.length > 0">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Qty</th>
+            <th>Neck Design</th>
+            <th>Date</th>
+            <th>Images</th>
+            <th>Status</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let o of sortedOrders; let i = index">
+
+            <td>{{ i + 1 }}</td>
+            <td>{{ o.qty }}</td>
+            <td>{{ o.neckDesign || '-' }}</td>
+            <td>{{ o.date | date:'dd MMM yyyy' }}</td>
+            <td>
+                <button class="view-img-btn" (click)="toggleImages(o)">
+                    {{ o.showImages ? 'Hide Images' : 'View Images' }}
+                </button>
+
+                <div class="order-images" *ngIf="o.showImages">
+                    <img *ngIf="o.blousePhoto" [src]="o.blousePhoto"  (click)="openImage(o.blousePhoto)"/>
+        
+                </div>
+            </td>
+
+            <td>
+                <span class="status" [class.pending]="o.status === 'pending'"
+                    [class.completed]="o.status === 'completed'">
+                    {{ o.status }}
+                </span>
+                <button *ngIf="o.status === 'pending'" class="complete-btn" (click)="markCompleted(o)">
+                    Complete
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p *ngIf="!customer?.orders || customer.orders.length === 0">
+    No previous orders found
+</p>
+
+<div class="image-modal" *ngIf="previewImage" (click)="closeImage()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="closeImage()">×</button>
+    <img [src]="previewImage" />
+  </div>
+</div>

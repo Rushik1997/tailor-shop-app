@@ -1,0 +1,131 @@
+/* PAGE */
+.customers-page {
+  padding: 20px;
+}
+
+/* HEADER */
+.customers-header h2 {
+  font-size: 26px;
+  color: #e07a47;
+  margin-bottom: 20px;
+}
+
+/* TOP BAR */
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 300px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #a87155;
+  outline: none;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.search-input:focus {
+  border-color: #8f5f45;
+}
+
+.add-btn {
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #a87155;
+  background: white;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background: #fff2eb;
+}
+
+/* TABLE */
+.customers-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+/* HEADER ROW */
+.customers-table thead {
+  background-color: #f9f6f4;
+
+}
+
+.customers-table th {
+  text-align: left;
+  padding: 12px 10px;
+  font-weight: 600;
+  color: #352a24;
+  border-bottom: 2px solid #f0c2a5;
+  vertical-align: middle;
+}
+
+/* BODY CELLS */
+.customers-table td {
+  padding: 12px 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid #f0c2a5;
+  color: #352a24;
+}
+
+/* FULL ROW HOVER */
+.customers-table tbody tr {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f0c2a5;
+}
+
+.customers-table tbody tr:hover td {
+  background-color: #fff2eb;
+}
+
+/* ACTION COLUMN */
+.customers-table th.action-col,
+.customers-table td.action-col {
+  text-align: center;
+  width: 160px;
+  padding-left: 0;
+  padding-right: 0;
+
+}
+
+
+/* ACTION BUTTONS */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+
+/* DELETE BUTTON */
+.delete-btn {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #c07d2b;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #a93226;
+}
+
+/* EMPTY STATE */
+.empty {
+  margin-top: 20px;
+  color: #777;
+  font-size: 14px;
+}

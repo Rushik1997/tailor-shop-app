@@ -1,0 +1,54 @@
+.sidebar {
+  width: 220px;
+  background: #352a24;
+  padding-top: 20px;
+  margin-right: 20px;
+  height: 100dvh;
+  transition: width 0.25s ease;
+}
+
+.sidebar a {
+  display: flex;
+  align-items:center;
+  gap: 14px;
+  padding: 14px 20px;
+  color: #ddd;
+  text-decoration: none;
+  font-size: 15px;
+  border-left: 4px solid transparent;
+}
+
+.sidebar a mat-icon {
+  font-size: 22px;
+  /* padding-top: 20px; */
+
+}
+
+/* Hover */
+.sidebar a:hover {
+  background: #4a3a33;
+}
+
+/* Active */
+.sidebar a.active {
+  background: #e07a47;
+  color: #fff;
+  font-weight: 600;
+  border-left: 3px solid #fff;
+}
+
+/* ===== COLLAPSED MODE ===== */
+.sidebar.collapsed {
+  width: 50px;
+}
+
+.sidebar.collapsed a {
+  justify-content: center;
+  padding: 14px 0;
+}
+
+.sidebar.collapsed .label {
+  display: none;
+}
+
+

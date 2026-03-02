@@ -1,0 +1,46 @@
+
+<div class="dashboard-header">
+
+  <div class="left">
+    <div class="logo"></div>
+    <h2>Hello Kumthekar</h2>
+  </div>
+
+
+  <div class="right">
+    
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+
+</div>
+
+<div>
+  <div class="dashboard-content">
+    <div class="card" (click)="goTo('customers')">
+      <div class="card-icon">👥</div>
+      <h3>Customers</h3>
+      <p>ग्राहकांची माहिती आणि मागील ऑर्डर</p>
+    </div>
+    <div class="card" (click)="goTo('addNewCustomer')">
+      <div class="card-icon">➕</div>
+      <h3>Add a new Customer</h3>
+      <p>नवीन ग्राहक जोडा आणि ऑर्डर घ्या</p>
+    </div>
+     <div class="card" (click)="goTo('placeNewOrder')">
+      <div class="card-icon">📏</div>
+      <h3> Place new Order</h3>
+      <p>नवीन ऑर्डर घ्या</p>
+    </div>
+    <div class="card" (click)="goTo('designs')">
+      <div class="card-icon">🖼️</div>
+      <h3>Designs</h3>
+      <p>उपलब्ध डिझाइन आणि नमुने</p>
+    </div>
+    
+    <div class="card"(click)="goTo('pendingOrders')">
+      <div class="card-icon">⏳</div>
+      <h3>Pending Orders</h3>
+      <p>शिल्लक काम पहा</p>
+    </div>
+  </div>
+</div>

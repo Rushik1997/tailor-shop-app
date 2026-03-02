@@ -1,0 +1,29 @@
+<h2>Place New Order</h2>
+
+<div class="top-bar"><input
+  type="text"
+  placeholder="Search customer by name or mobile"
+  [(ngModel)]="searchText"
+/></div>
+
+<table class="place-order-table" *ngIf="filteredCustomers.length > 0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Whatsapp No</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of filteredCustomers let i = index" (click)="selectCustomer(c)" >
+      <td>{{ i + 1 }}</td>
+      <td>{{ c.name }}</td>
+      <td>{{ c.whatsapp }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="searchText && filteredCustomers.length === 0">
+  Customer not found. So
+  <button (click)="addNewCustomer()">Add New Customer</button> here.
+</p>

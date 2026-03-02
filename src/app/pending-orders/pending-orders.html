@@ -1,0 +1,60 @@
+<div class="pending-orders-page">
+
+    <h2>Pending Orders</h2>
+
+    <table class="orders-table" *ngIf="pendingOrders.length > 0">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Customer Name</th>
+                <th>WhatsApp</th>
+                <th>Qty</th>
+                <th>Neck Design</th>
+                <th>Order Date</th>
+                <th>Images</th>
+                <th>Status</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let o of pendingOrders; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ o.customerName }}</td>
+                <td>{{ o.whatsapp }}</td>
+                <td>{{ o.qty }}</td>
+                <td>{{ o.neckDesign || '-' }}</td>
+                <td>{{ o.date | date:'dd MMM yyyy' }}</td>
+                <td>
+                    <button class="view-img-btn" (click)="toggleImages(o)">
+                        {{ o.showImages ? 'Hide Images' : 'View Images' }}
+                    </button>
+
+                    <div class="order-images" *ngIf="o.showImages">
+                        <img *ngIf="o.blousePhoto" [src]="o.blousePhoto" (click)="openImage(o.blousePhoto)" />
+
+                    </div>
+                </td>
+
+                <td class="status pending">Pending</td>
+                <td><button class="complete-btn" (click)="markCompleted(o)">
+                        Complete
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p class="empty" *ngIf="pendingOrders.length === 0">
+        No pending orders found
+    </p>
+
+    <div class="image-modal" *ngIf="previewImage" (click)="closeImage()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <button class="close-btn" (click)="closeImage()">×</button>
+            <img [src]="previewImage" />
+        </div>
+    </div>
+
+</div>

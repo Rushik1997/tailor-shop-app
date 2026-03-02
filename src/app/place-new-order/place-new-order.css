@@ -1,0 +1,103 @@
+/* PAGE */
+.place-order-page {
+  padding: 20px;
+  padding-top: 0%;
+}
+
+h2 {
+  font-size: 26px;
+  color: #e07a47;
+  margin-bottom: 20px;
+  padding-top: 20px;
+}
+
+/* SEARCH INPUT */
+.top-bar input {
+  width: 100%;
+  max-width: 500px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.top-bar input:focus {
+  border-color: #e07a47;
+}
+
+/* TABLE */
+.place-order-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+/* HEADER */
+.place-order-table thead {
+  background-color: #f9f6f4;
+}
+
+.place-order-table th {
+  text-align: left;
+  padding: 12px 10px;
+  font-weight: 600;
+  color: #352a24;
+  border-bottom: 2px solid #f0c2a5;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
+/* BODY CELLS */
+.place-order-table td {
+  padding: 12px 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid #f0c2a5;
+  color: #352a24;
+}
+
+/* ROW HOVER */
+.place-order-table tbody tr:hover td {
+  background-color: #fff2eb;
+  cursor: pointer;
+}
+
+/* EMPTY STATE */
+.no-results {
+  margin-top: 20px;
+  color: #777;
+  font-size: 14px;
+}
+
+/* ADD NEW CUSTOMER BUTTON */
+p button {
+  margin-top: 10px;
+  padding: 8px 18px;
+  border-radius: 999px; /* pill shape */
+  border: 2px dashed #e07a47;
+  background: transparent;
+  color: #e07a47;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+p button:hover {
+   background: #fff2eb;
+  transform: translateY(-1px);
+}
+
+
+/* RESPONSIVE (MOBILE) */
+@media (max-width: 768px) {
+  .place-order-table {
+    font-size: 13px;
+  }
+
+  .top-bar input {
+    max-width: 100%;
+  }
+}

@@ -11,9 +11,7 @@
     </div>
 
     <button class="login-btn" (click)="login()">Login</button>
-    @if(error){
-        <p class="error">{{ error }}</p>
-    }
+    <p class="error" *ngIf="error">{{ error }}</p>
     
   </div>
 </div>
