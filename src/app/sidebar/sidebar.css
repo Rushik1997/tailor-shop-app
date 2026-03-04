@@ -2,8 +2,7 @@
   width: 220px;
   background: #352a24;
   padding-top: 20px;
-  margin-right: 20px;
-  height: 100dvh;
+  min-height: 100%;
   transition: width 0.25s ease;
 }
 
@@ -19,9 +18,7 @@
 }
 
 .sidebar a mat-icon {
-  font-size: 22px;
-  /* padding-top: 20px; */
-
+  font-size: 20px;
 }
 
 /* Hover */
@@ -39,16 +36,25 @@
 
 /* ===== COLLAPSED MODE ===== */
 .sidebar.collapsed {
-  width: 50px;
-}
-
-.sidebar.collapsed a {
-  justify-content: center;
-  padding: 14px 0;
+  width: 70px;
 }
 
 .sidebar.collapsed .label {
   display: none;
 }
 
+/* MOBILE */
+@media (max-width: 768px) {
 
+  .sidebar {
+    position: fixed;
+    top: var(--header-height);
+    left: -220px;
+    height: calc(100vh - var(--header-height));
+    z-index: 1000;
+  }
+
+  .sidebar.mobile-open {
+    left: 0;
+  }
+}

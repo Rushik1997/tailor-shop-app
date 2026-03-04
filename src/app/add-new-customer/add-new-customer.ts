@@ -51,21 +51,28 @@ export class AddNewCustomer {
     private route: ActivatedRoute
   ) { }
 
-  saveCustomer() {
+ saveCustomer() {
 
-    if (!this.isValidCustomer()) return;
+  if (!this.isValidCustomer()) return;
+  if (!this.isValidOrder()) return;
 
-    if (!this.isValidOrder()) return;
+  this.customer.orders.push({
+    ...this.order,
+    date: new Date(),
+    status: 'pending'
+  });
 
-    this.customer.orders.push({
-      ...this.order,
-      date: new Date(),
-      status: 'pending'
-    });
-
-    this.customerService.addCustomer(this.customer);
-    this.router.navigate(['/customers']);
-  }
+  this.customerService.addCustomer(this.customer).subscribe({
+    next: () => {
+      alert('Customer saved successfully');
+      this.router.navigate(['/customers']);
+    },
+    error: (err) => {
+      console.error(err);
+      alert('Error saving customer');
+    }
+  });
+}
 
 
   isValidCustomer(): boolean {

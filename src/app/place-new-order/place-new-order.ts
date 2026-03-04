@@ -24,7 +24,14 @@ export class PlaceNewOrder implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.customers = this.customerService.getCustomers();
+    this.customerService.getCustomers().subscribe({
+      next: (data: any[]) => {
+        this.customers = data;
+      },
+      error: (err: any) => {
+        console.error('Error loading customers:', err);
+      }
+    });
   }
 
   get filteredCustomers() {

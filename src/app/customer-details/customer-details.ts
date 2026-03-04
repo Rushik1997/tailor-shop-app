@@ -9,7 +9,7 @@ import { CustomerService } from '../../services/customer.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './customer-details.html',
-  styleUrl: './customer-details.css'
+  styleUrls: ['./customer-details.css']
 })
 export class CustomerDetails implements OnInit {
   editMode = false;
@@ -28,8 +28,18 @@ export class CustomerDetails implements OnInit {
   ) { }
 
   ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.customer = this.customerService.getCustomerById(id);
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (!id) return;
+
+    this.customerService.getCustomerById(id).subscribe({
+      next: (data) => {
+        this.customer= data;
+      },
+      error: (err) => {
+        console.error('Error loading customer:', err)
+      }
+    });
 
     const action = this.route.snapshot.queryParamMap.get('action');
     if (action === 'new-order') {
@@ -56,7 +66,8 @@ export class CustomerDetails implements OnInit {
       status: 'pending'
     };
 
-    this.customerService.addOrder(this.customer.id, orderData);
+    // this.customerService.addOrder(this.customer._id, orderData);
+    console.log('Order feature is not migrated to backend yet')
 
     this.order = {
       qty: 1,
@@ -66,22 +77,6 @@ export class CustomerDetails implements OnInit {
     };
   }
 
-
-  // saveOrder() {
-  //   const orderData = {
-  //     ...this.order,
-  //     date: new Date(),
-  //     status: 'pending'
-  //   };
-
-  //   this.customerService.addOrder(this.customer.id, orderData);
-  //   this.order = {
-  //     qty: 1,
-  //     blousePhoto: null,
-  //     neckDesign: '',
-  //     suggestions: ''
-  //   };
-  // }
 
   isValidOrder(): boolean {
     const qty = Number(this.order.qty);
@@ -101,10 +96,13 @@ export class CustomerDetails implements OnInit {
   }
 
   markCompleted(order: any) {
-    this.customerService.markOrderCompleted(this.customer.id, order.date);
+    // this.customerService.markOrderCompleted(this.customer._id, order.date);
+        console.log('Order feature is not migrated to backend yet')
 
     // refresh customer data
-    this.customer = this.customerService.getCustomerById(this.customer.id);
+    this.customerService.getCustomerById(this.customer._id).subscribe(data => {
+      this.customer = data;
+    });
   }
 
   get sortedOrders() {
