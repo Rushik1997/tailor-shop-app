@@ -67,36 +67,50 @@
 <hr />
 
 <section class="order-details">
-    <h3>Order Details</h3>
+      <h3>Order Details</h3>
 
-    <div class="order-grid">
+      <div class="order-grid">
         <div class="field">
-            <label>Qty</label>
-            <input type="number" [(ngModel)]="order.qty" />
+          <label>Qty</label>
+          <input type="number" [(ngModel)]="order.qty" (input)="calculateTotal()" />
         </div>
+
+        <div class="field">
+          <label>Blouse Type</label>
+          <select [(ngModel)]="order.blouseType" (change)="setPrice()">
+            <option value="">Select Type</option>
+            <option value="साधा">Simple</option>
+            <option value="कटोरी">Katori</option>
+            <option value="प्रिन्स कट">Prince Cut</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Total Amount</label>
+          <input type="number" [value]="getTotal()" />
+        </div>
+
 
         <div class="upload">
 
-            <input type="file" accept="image/*" capture="environment" (change)="onBlousePhotoChange($event)" />
+          <input type="file" accept="image/*" capture="environment" (change)="onBlousePhotoChange($event)" />
         </div>
 
 
 
         <div class="field">
-            <label>Neck design</label>
-            <input type="text" [(ngModel)]="order.neckDesign" />
+          <label>Neck design</label>
+          <input type="text" [(ngModel)]="order.neckDesign" />
         </div>
-    </div>
+      </div>
 
-    <section class="notes">
-        <h3>Other suggestions</h3>
-        <textarea rows="3" [(ngModel)]="order.suggestions"></textarea>
+
+
+      <button class="save-order-btn" (click)="saveOrder()">
+        Save
+      </button>
+
     </section>
-
-    <button class="save-order-btn" (click)="saveOrder()">
-        Save Order
-    </button>
-</section>
 
 <hr />
 

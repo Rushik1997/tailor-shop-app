@@ -17,26 +17,47 @@ export class PendingOrders {
 
 
   ngOnInit() {
-    this.customerService.getCustomers().subscribe({
-      next: (customers: any[]) => {
-        this.pendingOrders = customers.flatMap((c: any) => (c.order || []).filter((o: any) => o.status === 'pending').map((o: any) => ({
-          ...o, customerID: c._id, customerName: c.name
-        })))
-      },
-      error: (err: any) => {
-        console.error('Error loading pending orders:', err)
-      }
+    this.customerService.getCustomers().subscribe((customers: any[]) => {
+
+      this.pendingOrders = [];
+
+      customers.forEach(customer => {
+        customer.orders?.forEach((order: any) => {
+          if (order.status === 'pending') {
+
+            this.pendingOrders.push({
+              customerID: customer._id,
+              customerName: customer.name,
+              whatsapp: customer.whatsapp,
+              ...order
+            });
+
+          }
+        });
+      });
+
     });
   }
 
-  // markCompleted(order: any) {
-  //   this.customerService.markOrderCompleted(order.customerId, order.date);
-  //   this.ngOnInit(); // refresh list
-  // }
-
   markCompleted(order: any) {
-  console.log('Mark completed not implemented yet', order);
-}
+
+    this.customerService
+      .markOrderCompleted(order.customerID, order.date)
+      .subscribe({
+        next: () => {
+
+          // remove order from pending list immediately
+          this.pendingOrders = this.pendingOrders.filter(
+            o => !(o.customerID === order.customerID && o.date === order.date)
+          );
+
+        },
+        error: err => {
+          console.error('Failed to mark completed', err);
+        }
+      });
+
+  }
 
   toggleImages(order: any) {
     order.showImages = !order.showImages;

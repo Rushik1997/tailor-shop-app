@@ -43,7 +43,7 @@ export class PlaceNewOrder implements OnInit {
   }
 
   selectCustomer(customer: any) {
-    this.router.navigate(['/customers', customer.id], {
+    this.router.navigate(['/customers', customer._id], {
       queryParams: { action: 'new-order' }
     });
   }

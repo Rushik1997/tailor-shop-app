@@ -9,7 +9,7 @@ export class CustomerService {
 
   private baseUrl = 'http://localhost:5000/api/customers';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getCustomers(): Observable<any> {
     return this.http.get(this.baseUrl);
@@ -26,4 +26,18 @@ export class CustomerService {
   deleteCustomer(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
+
+  markOrderCompleted(customerId: string, date: string) {
+  return this.http.patch(
+    `http://localhost:5000/api/customers/${customerId}/orders/complete`,
+    { date }
+  );
+}
+
+updateCustomer(id: string, customer: any) {
+  return this.http.put(
+    `http://localhost:5000/api/customers/${id}`,
+    customer
+  );
+}
 }

@@ -111,20 +111,22 @@ textarea[readonly] {
   flex-direction: column;
 }
 
-.order-grid {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 16px;
+.field {
+  display: flex;
+  
+  gap: 8px;
 }
 
+.order-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
 .upload input {
   border: none;
   padding: 4px 0;
 }
 
-/* .order-details .save-btn {
-  margin-top: 16px;
-} */
 
 .history p {
   font-size: 14px;

@@ -25,7 +25,7 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let c of filteredCustomers, let i = index" (click)="openCustomer(c.id)">
+      <tr *ngFor="let c of filteredCustomers, let i = index" (click)="openCustomer(c._id)">
         <td>{{ i + 1 }}</td>
         <td>{{ c.name }}</td>
         <td>{{ c.whatsapp }}</td>
