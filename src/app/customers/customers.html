@@ -25,17 +25,17 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let c of filteredCustomers, let i = index" (click)="openCustomer(c.id)">
+      <tr *ngFor="let c of filteredCustomers, let i = index" (click)="openCustomer(c._id)">
         <td>{{ i + 1 }}</td>
         <td>{{ c.name }}</td>
         <td>{{ c.whatsapp }}</td>
         <td>{{ c.address }}</td>
-        <td>{{ c.lastOrderDate ? (c.lastOrderDate | date:'dd MMM yyyy') : '-' }}</td>
+        <td> {{ c.orders?.length ? (c.orders[0].date | date:'dd MMM yyyy') : '-' }}</td>
         <td class="action-col">
   <div class="action-buttons">
   
     <button class="delete-btn"
-            (click)="deleteCustomer(c.id); $event.stopPropagation()">
+            (click)="deleteCustomer(c._id); $event.stopPropagation()">
       Delete
     </button>
   </div>

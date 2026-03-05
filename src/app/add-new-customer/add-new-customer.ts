@@ -32,11 +32,39 @@ export class AddNewCustomer {
   };
   order = {
     qty: 1,
+    blouseType: '',
+    price: 0,
     blousePhoto: null as File | null,
-    cuttingPhoto: null as File | null,
     neckDesign: '',
     suggestions: ''
   };
+
+  getTotal(): number {
+    const qty = Number(this.order.qty) || 0;
+    const price = Number(this.order.price) || 0;
+    return qty * price;
+  }
+
+  setPrice() {
+    if (this.order.blouseType === 'साधा') {
+      this.order.price = 230;
+    } else if (this.order.blouseType === 'कटोरी') {
+      this.order.price = 300;
+    } else if (this.order.blouseType === 'प्रिन्स कट') {
+      this.order.price = 350;
+    } else {
+      this.order.price = 0;
+    }
+    this.calculateTotal();
+  }
+
+  calculateTotal(): number {
+    const qty = Number(this.order.qty) || 0;
+    const price = Number(this.order.price) || 0;
+    return qty * price;
+  }
+
+
   onBlousePhotoChange(event: Event) {
     const input = event.target as HTMLInputElement;
 
@@ -54,45 +82,55 @@ export class AddNewCustomer {
   saveCustomer() {
 
     if (!this.isValidCustomer()) return;
-
     if (!this.isValidOrder()) return;
 
     this.customer.orders.push({
-      ...this.order,
-      date: new Date(),
-      status: 'pending'
-    });
+  qty: this.order.qty,
+  blouseType: this.order.blouseType,
+  total: this.getTotal(),
+  neckDesign: this.order.neckDesign,
+  date: new Date(),
+  status: 'pending'
+});
 
-    this.customerService.addCustomer(this.customer);
-    this.router.navigate(['/customers']);
+    this.customerService.addCustomer(this.customer).subscribe({
+      next: () => {
+        // alert('Customer saved successfully');
+        this.router.navigate(['/customers']);
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Error saving customer');
+      }
+    });
   }
 
 
   isValidCustomer(): boolean {
-  if (!this.customer.name.trim()) {
-    alert('Customer name is required');
-    return false;
+    if (!this.customer.name.trim()) {
+      alert('Customer name is required');
+      return false;
+    }
+
+    if (!/^\d{10}$/.test(this.customer.whatsapp)) {
+      alert('Enter a valid 10-digit WhatsApp number');
+      return false;
+    }
+
+    const m = this.customer.measurements;
+
+    const hasValidMeasurement = Object.values(m).some(value => {
+      const num = Number(value);
+      return !isNaN(num) && num > 0;
+    });
+
+    if (!hasValidMeasurement) {
+      alert('Enter at least one measurement greater than 0');
+      return false;
+    }
+
+    return true;
   }
-
-  if (!/^\d{10}$/.test(this.customer.whatsapp)) {
-    alert('Enter a valid 10-digit WhatsApp number');
-    return false;
-  }
-
-  const m = this.customer.measurements;
-
-  const hasValidMeasurement = Object.values(m).some(value => {
-    const num = Number(value);
-    return !isNaN(num) && num > 0;
-  });
-
-  if (!hasValidMeasurement) {
-    alert('Enter at least one measurement greater than 0');
-    return false;
-  }
-
-  return true;
-}
 
 
   isValidOrder(): boolean {

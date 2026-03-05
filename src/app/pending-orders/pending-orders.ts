@@ -13,41 +13,64 @@ import { FormsModule } from '@angular/forms';
 export class PendingOrders {
 
   pendingOrders: any[] = [];
-  constructor(private customerService: CustomerService) {}
+  constructor(private customerService: CustomerService) { }
 
 
-ngOnInit() {
-  const customers = this.customerService.getCustomers();
+  ngOnInit() {
+    this.customerService.getCustomers().subscribe((customers: any[]) => {
 
-  this.pendingOrders = customers.flatMap(c =>
-    c.orders
-      .filter((o: any) => o.status === 'pending')
-      .map((o: any) => ({
-          customerId: c.id,
-        customerName: c.name,
-        whatsapp: c.whatsapp,
-        ...o
-      }))
-  );
-}
+      this.pendingOrders = [];
 
-markCompleted(order: any) {
-  this.customerService.markOrderCompleted(order.customerId, order.date);
-  this.ngOnInit(); // refresh list
-}
+      customers.forEach(customer => {
+        customer.orders?.forEach((order: any) => {
+          if (order.status === 'pending') {
 
-toggleImages(order: any) {
-  order.showImages = !order.showImages;
-}
-previewImage: string | null = null;
+            this.pendingOrders.push({
+              customerID: customer._id,
+              customerName: customer.name,
+              whatsapp: customer.whatsapp,
+              ...order
+            });
 
-openImage(src: string) {
-  this.previewImage = src;
-}
+          }
+        });
+      });
 
-closeImage() {
-  this.previewImage = null;
-}
+    });
+  }
+
+  markCompleted(order: any) {
+
+    this.customerService
+      .markOrderCompleted(order.customerID, order.date)
+      .subscribe({
+        next: () => {
+
+          // remove order from pending list immediately
+          this.pendingOrders = this.pendingOrders.filter(
+            o => !(o.customerID === order.customerID && o.date === order.date)
+          );
+
+        },
+        error: err => {
+          console.error('Failed to mark completed', err);
+        }
+      });
+
+  }
+
+  toggleImages(order: any) {
+    order.showImages = !order.showImages;
+  }
+  previewImage: string | null = null;
+
+  openImage(src: string) {
+    this.previewImage = src;
+  }
+
+  closeImage() {
+    this.previewImage = null;
+  }
 
 
 }

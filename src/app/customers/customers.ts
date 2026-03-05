@@ -21,14 +21,25 @@ export class Customers implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.customers = this.customerService.getCustomers();
+    this.loadCustomers();
+  }
+
+  loadCustomers() {
+    this.customerService.getCustomers().subscribe({
+      next: (data) => {
+        this.customers = data;
+      },
+      error: (err) => {
+        console.error('Error fetching customers:', err);
+      }
+    });
   }
 
   get filteredCustomers() {
     const text = this.searchText.toLowerCase();
 
     return this.customers.filter(c =>
-      c.name.toLowerCase().includes(text) ||
+      c.name?.toLowerCase().includes(text) ||
       c.whatsapp?.includes(text) ||
       c.address?.toLowerCase().includes(text)
     );
@@ -38,18 +49,23 @@ export class Customers implements OnInit {
     this.router.navigate(['/addNewCustomer']);
   }
 
-  openCustomer(id: number) {
+  openCustomer(id: string) {
     this.router.navigate(['/customers', id]);
   }
 
-  deleteCustomer(id:number){
+  deleteCustomer(id: string) {
     const confirmDelete = confirm("Are you sure you want to delete this customer?");
-    if(!confirmDelete) {
-      return;
-    }
-  
-    this.customerService.deleteCustomer(id);
-    this.customers = this.customerService.getCustomers();
+    if (!confirmDelete) return;
+
+    this.customerService.deleteCustomer(id).subscribe({
+      next: () => {
+        this.loadCustomers(); // reload from backend
+      },
+      error: (err) => {
+        console.error('Delete failed:', err);
+      }
+    });
   }
 
+  
 }

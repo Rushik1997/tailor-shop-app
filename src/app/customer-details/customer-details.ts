@@ -9,7 +9,7 @@ import { CustomerService } from '../../services/customer.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './customer-details.html',
-  styleUrl: './customer-details.css'
+  styleUrls: ['./customer-details.css']
 })
 export class CustomerDetails implements OnInit {
   editMode = false;
@@ -18,6 +18,8 @@ export class CustomerDetails implements OnInit {
 
   order = {
     qty: 1,
+    blouseType: '',
+    price: 0,
     blousePhoto: null as File | null,
     neckDesign: '',
     suggestions: ''
@@ -28,8 +30,18 @@ export class CustomerDetails implements OnInit {
   ) { }
 
   ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.customer = this.customerService.getCustomerById(id);
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (!id) return;
+
+    this.customerService.getCustomerById(id).subscribe({
+      next: (data) => {
+        this.customer = data;
+      },
+      error: (err) => {
+        console.error('Error loading customer:', err)
+      }
+    });
 
     const action = this.route.snapshot.queryParamMap.get('action');
     if (action === 'new-order') {
@@ -43,45 +55,94 @@ export class CustomerDetails implements OnInit {
   }
 
   saveCustomer() {
-    this.editMode = false;
-    console.log('Customer saved:', this.customer);
-  }
+
+  this.customerService
+    .updateCustomer(this.customer._id, this.customer)
+    .subscribe({
+      next: (updatedCustomer) => {
+        this.customer = updatedCustomer;
+        this.editMode = false;
+      },
+      error: (err) => {
+        console.error('Failed to update customer', err);
+      }
+    });
+
+}
 
   saveOrder() {
+
     if (!this.isValidOrder()) return;
 
-    const orderData = {
-      ...this.order,
+    const newOrder = {
+      qty: this.order.qty,
+      blouseType: this.order.blouseType,
+      total: this.getTotal(),
+      neckDesign: this.order.neckDesign,
       date: new Date(),
       status: 'pending'
     };
 
-    this.customerService.addOrder(this.customer.id, orderData);
+    // add order to customer
+    if (!this.customer.orders) {
+      this.customer.orders = [];
+    }
 
-    this.order = {
-      qty: 1,
-      blousePhoto: null,
-      neckDesign: '',
-      suggestions: ''
-    };
+    this.customer.orders.push(newOrder);
+
+    // update customer in DB
+    this.customerService
+      .updateCustomer(this.customer._id, this.customer)
+      .subscribe({
+        next: (updatedCustomer) => {
+
+          this.customer = updatedCustomer;
+
+          // reset form
+          this.order = {
+            qty: 1,
+            blouseType: '',
+            price: 0,
+            blousePhoto: null,
+            neckDesign: '',
+            suggestions: ''
+          };
+
+        },
+        error: (err) => {
+          console.error("Failed to save order", err);
+        }
+      });
+
   }
 
 
-  // saveOrder() {
-  //   const orderData = {
-  //     ...this.order,
-  //     date: new Date(),
-  //     status: 'pending'
-  //   };
 
-  //   this.customerService.addOrder(this.customer.id, orderData);
-  //   this.order = {
-  //     qty: 1,
-  //     blousePhoto: null,
-  //     neckDesign: '',
-  //     suggestions: ''
-  //   };
-  // }
+  setPrice() {
+    if (this.order.blouseType === 'साधा') {
+      this.order.price = 230;
+    } else if (this.order.blouseType === 'कटोरी') {
+      this.order.price = 300;
+    } else if (this.order.blouseType === 'प्रिन्स कट') {
+      this.order.price = 350;
+    } else {
+      this.order.price = 0;
+    }
+    this.calculateTotal();
+  }
+
+  calculateTotal(): number {
+    const qty = Number(this.order.qty) || 0;
+    const price = Number(this.order.price) || 0;
+    return qty * price;
+  }
+
+  getTotal(): number {
+    const qty = Number(this.order.qty) || 0;
+    const price = Number(this.order.price) || 0;
+    return qty * price;
+  }
+
 
   isValidOrder(): boolean {
     const qty = Number(this.order.qty);
@@ -101,10 +162,28 @@ export class CustomerDetails implements OnInit {
   }
 
   markCompleted(order: any) {
-    this.customerService.markOrderCompleted(this.customer.id, order.date);
 
-    // refresh customer data
-    this.customer = this.customerService.getCustomerById(this.customer.id);
+    this.customerService
+      .markOrderCompleted(this.customer._id, order.date)
+      .subscribe({
+        next: () => {
+
+          // update UI immediately
+          order.status = 'completed';
+
+          // refresh customer from backend
+          this.customerService
+            .getCustomerById(this.customer._id)
+            .subscribe(data => {
+              this.customer = data;
+            });
+
+        },
+        error: err => {
+          console.error("Failed to mark completed", err);
+        }
+      });
+
   }
 
   get sortedOrders() {
