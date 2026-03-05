@@ -1,8 +1,11 @@
-🧵 Tailor Shop Management App
+🧵 Tailor Shop Management System
 
-A scalable Angular-based tailor shop management system designed to manage customers, orders, and shop workflows efficiently through a modular dashboard architecture.
+A full-stack tailor shop management application designed to help small tailoring businesses manage customers, orders, and shop workflows efficiently.
+
+The system provides a modern dashboard interface with customer management, order tracking, and design management capabilities.
 
 🚀 Tech Stack
+Frontend
 
 Angular (Standalone Components Architecture)
 Angular Router
@@ -10,82 +13,121 @@ Angular Material
 TypeScript
 SCSS (Custom Theming)
 
+Backend
+Node.js
+Express.js
+MongoDB
+Mongoose (ODM)
+
+Tools
+Git & GitHub
+REST API
+Postman (API testing)
+
 ✨ Key Features
 
-🔐 Authentication UI (Login Screen)
-📊 Dashboard Overview
-👥 Customer Management Module
-➕ Add New Customer
-📄 Customer Details View
-🧵 Place New Order Workflow
-⏳ Pending Orders Tracking
-🎨 Design Management Section
-📂 Responsive Sidebar + Layout System
+Authentication
+🔐 Login UI
+
+Customer Management
+👥 Add new customers
+📄 View customer details
+✏️ Manage customer records
+
+Order Management
+🧵 Create new tailoring orders
+⏳ Track pending orders
+📊 Dashboard overview of shop activity
+
+Design Management
+🎨 Manage clothing design references
+
+UI System
+📂 Responsive sidebar navigation
+📊 Modular dashboard layout
 
 🏗️ Architecture Highlights
-
-Modular feature-based folder structure
-Standalone components (no legacy NgModules)
-Centralized routing configuration
-Reusable layout system with sidebar navigation
-Clean separation of services and UI components
+Feature-based Angular architecture
+Standalone Angular components (no NgModules)
+RESTful API backend
+MongoDB database integration
+Clean separation between frontend and backend
+Scalable modular folder structure
 
 📁 Project Structure
-src/
-├── app/
-│   ├── dashboard/
-│   ├── customers/
-│   ├── add-new-customer/
-│   ├── place-new-order/
-│   ├── sidebar/
-│   ├── layout/
+tailor-shop-app
 │
-├── services/
-├── assets/
-
+├── backend
+│   ├── models
+│   ├── routes
+│   ├── controllers
+│   ├── server.js
+│   └── package.json
+│
+├── src
+│   ├── app
+│   │   ├── dashboard
+│   │   ├── customers
+│   │   ├── add-new-customer
+│   │   ├── place-new-order
+│   │   ├── sidebar
+│   │   └── layout
+│
+├── public
+├── angular.json
+├── package.json
+└── README.md
 
 🛠️ Installation & Setup
 1️⃣ Clone Repository
 git clone https://github.com/Rushik1997/tailor-shop-app.git
 cd tailor-shop-app
-2️⃣ Install Dependencies
+
+2️⃣ Install Frontend Dependencies
 npm install
-3️⃣ Run Development Server
+
+3️⃣ Install Backend Dependencies
+cd backend
+npm install
+
+▶️ Run Application
+Start Backend Server
+cd backend
+node server.js
+
+Backend will run on:
+http://localhost:5000
+
+Start Angular Frontend
 ng serve
 
-Open browser:
-
+Frontend will run on:
 http://localhost:4200
-⚙️ Angular CLI Information
 
-This project was generated using Angular CLI v20.3.2.
+🧪 API Testing
+API endpoints can be tested using:
+Postman
+Thunder Client
+Curl
 
-Generate a Component
-ng generate component component-name
-View All Available Schematics
-ng generate --help
-🏗️ Build Project
+Example endpoint:
+GET /api/customers
+POST /api/orders
 
+🏗️ Build Frontend
 To create a production build:
-
 ng build
 
-Build output will be generated inside the dist/ directory.
+Output will be generated in:
+dist/
 
-🧪 Running Tests
-Unit Tests (Karma)
-ng test
-End-to-End Tests
-ng e2e
-
-Angular CLI does not include an e2e framework by default. You may integrate Cypress or Playwright if needed.
-
-🎯 Purpose
-
-This project simulates a real-world small business management dashboard while strengthening advanced Angular architecture, routing, and UI design practices.
-
+🎯 Project Goal
+This project simulates a real-world small business management system while practicing:
+Angular scalable architecture
+REST API development
+MongoDB data modeling
+Full-stack application design
 
 👨‍💻 Author
-
 Rushikesh Kumthekar
-Frontend Developer | Angular | TypeScript
+Application Developer | Angular | TypeScript | Node.js
