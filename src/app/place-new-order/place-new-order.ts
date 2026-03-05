@@ -24,14 +24,7 @@ export class PlaceNewOrder implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.customerService.getCustomers().subscribe({
-      next: (data: any[]) => {
-        this.customers = data;
-      },
-      error: (err: any) => {
-        console.error('Error loading customers:', err);
-      }
-    });
+    this.customers = this.customerService.getCustomers();
   }
 
   get filteredCustomers() {
@@ -43,7 +36,7 @@ export class PlaceNewOrder implements OnInit {
   }
 
   selectCustomer(customer: any) {
-    this.router.navigate(['/customers', customer._id], {
+    this.router.navigate(['/customers', customer.id], {
       queryParams: { action: 'new-order' }
     });
   }

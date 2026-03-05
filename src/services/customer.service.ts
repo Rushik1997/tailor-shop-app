@@ -1,43 +1,78 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+
+const STORAGE_KEY = 'tailor_customers';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
 
-  private baseUrl = 'http://localhost:5000/api/customers';
+  private customers: any[] = [];
 
-  constructor(private http: HttpClient) { }
-
-  getCustomers(): Observable<any> {
-    return this.http.get(this.baseUrl);
+  constructor() {
+    this.loadFromStorage();
   }
 
-  addCustomer(customer: any): Observable<any> {
-    return this.http.post(this.baseUrl, customer);
+  private loadFromStorage() {
+    const data = localStorage.getItem(STORAGE_KEY);
+    if (data) {
+      this.customers = JSON.parse(data);
+    }
   }
 
-  getCustomerById(id: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`);
+  private saveToStorage() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.customers));
   }
 
-  deleteCustomer(id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`);
+  getCustomers() {
+    return this.customers;
   }
 
-  markOrderCompleted(customerId: string, date: string) {
-  return this.http.patch(
-    `http://localhost:5000/api/customers/${customerId}/orders/complete`,
-    { date }
+  addCustomer(customer: any): number {
+    customer.id = Date.now();
+    customer.lastOrderDate = customer.orders?.length
+      ? customer.orders[0].date
+      : null;
+
+    this.customers.push(customer);
+    this.saveToStorage();
+
+    return customer.id;
+  }
+
+
+  getCustomerById(id: number) {
+    return this.customers.find(c => c.id === id);
+  }
+
+  addOrder(customerID: number, order: any) {
+    const customer = this.getCustomerById(customerID);
+
+    if (!customer) return;
+
+    customer.orders.push(order);
+    customer.lastOrderDate = order.date;
+
+    this.saveToStorage();
+  }
+
+  deleteCustomer(id: number) {
+    this.customers = this.customers.filter(c => c.id !== id);
+    this.saveToStorage();
+  }
+
+  markOrderCompleted(customerId: number, orderDate: Date) {
+  const customer = this.getCustomerById(customerId);
+  if (!customer) return;
+
+  const order = customer.orders.find(
+    (o: any) => new Date(o.date).getTime() === new Date(orderDate).getTime()
   );
+
+  if (!order) return;
+
+  order.status = 'completed';
+  this.saveToStorage();
 }
 
-updateCustomer(id: string, customer: any) {
-  return this.http.put(
-    `http://localhost:5000/api/customers/${id}`,
-    customer
-  );
-}
 }

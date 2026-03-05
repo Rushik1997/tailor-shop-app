@@ -1,31 +1,24 @@
 <header class="app-header">
   <button class="hamburger" (click)="toggleSidebar()">☰</button>
-
   <div class="date">
-    Date: {{ today | date:'dd MMM yyyy' }}
-  </div>
+      Date: {{ today | date:'dd MMM yyyy' }}
+    </div>
 </header>
 
-<!-- Overlay (mobile only) -->
 <div
   class="overlay"
-  *ngIf="isMobileOpen"
-  (click)="closeMobile()"
+  *ngIf="isSidebarCollapsed"
+  (click)="closeSidebar()"
 ></div>
 
 <div class="layout">
-
+  <!-- SIDEBAR -->
   <app-sidebar
-    [mobileOpen]="isMobileOpen"
-    [collapsed]="isCollapsed"
+    [mobileOpen]="isSidebarCollapsed"
+    (click)="$event.stopPropagation()"
   ></app-sidebar>
 
-  <main
-    class="main-content"
-    [class.collapsed]="isCollapsed"
-    (click)="closeMobile()"
-  >
+  <main class="main-content" (click)="closeSidebar()">
     <router-outlet></router-outlet>
   </main>
-
 </div>
